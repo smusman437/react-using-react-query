@@ -20,34 +20,60 @@ export default function App() {
   }
 
   return (
-    <div>
-      <button onClick={() => setCurrentPage(<PostsList1 />)}>
-        Posts List 1
-      </button>
-      <button onClick={() => setCurrentPage(<PostsList2 />)}>
-        Posts List 2
-      </button>
-      <button
-        onMouseEnter={onHoverPostOneLink}
-        onClick={() => setCurrentPage(<Post id={1} />)}
-      >
-        First Post
-      </button>
-      <button
-        onClick={() =>
-          setCurrentPage(<CreatePost setCurrentPage={setCurrentPage} />)
-        }
-      >
-        New Post
-      </button>
-      <button onClick={() => setCurrentPage(<PostListPaginated />)}>
-        Post List Paginated
-      </button>
-      <button onClick={() => setCurrentPage(<PostListInfinite />)}>
-        Post List Infinite
-      </button>
+    <div className="container mt-2">
+      <span className="mx-1">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setCurrentPage(<PostsList1 />)}
+        >
+          Posts List 1
+        </button>
+      </span>
+      <span className="mx-1">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setCurrentPage(<PostsList2 />)}
+        >
+          Posts List 2
+        </button>
+      </span>
+      <span className="mx-1">
+        <button
+          className="btn btn-outline-primary"
+          onMouseEnter={onHoverPostOneLink}
+          onClick={() => setCurrentPage(<Post id={1} />)}
+        >
+          First Post
+        </button>
+      </span>
+      <span className="mx-1">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() =>
+            setCurrentPage(<CreatePost setCurrentPage={setCurrentPage} />)
+          }
+        >
+          New Post
+        </button>
+      </span>
+      <span className="mx-1">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setCurrentPage(<PostListPaginated />)}
+        >
+          Post List Paginated
+        </button>
+      </span>
+      <span className="mx-1">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setCurrentPage(<PostListInfinite />)}
+        >
+          Post List Infinite
+        </button>
+      </span>
       <br />
-      {currentPage}
+      <div className="container">{currentPage}</div>
     </div>
   );
 }

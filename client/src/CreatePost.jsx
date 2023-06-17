@@ -1,11 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useState } from "react";
 import { createPost } from "./api/posts";
 import Post from "./Post";
 
 export function CreatePost({ setCurrentPage }) {
-  const titleRef = useRef();
-  const bodyRef = useRef();
+  const [newPost, setNewPost] = useState({ title: "", body: "" });
+
+  const handleCreatePost = () => {
+    createPostMutation.mutate({
+      ...newPost,
+    });
+    setNewPost({ title: "", body: "" });
+  };
+
+  const handleDisable = () =>
+    !(newPost.title && newPost.body) || createPostMutation.isLoading;
   const queryClient = useQueryClient();
   const createPostMutation = useMutation({
     mutationFn: createPost,
@@ -16,31 +25,48 @@ export function CreatePost({ setCurrentPage }) {
     },
   });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    createPostMutation.mutate({
-      title: titleRef.current.value,
-      body: bodyRef.current.value,
-    });
-  }
-
   return (
-    <div>
+    <div className="mt-3">
       {createPostMutation.isError && JSON.stringify(createPostMutation.error)}
-      <h1>Create Post</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input id="title" ref={titleRef} />
+      <h3>Create a new post</h3>
+      <div className="row g-3">
+        <div className="col-md-4">
+          <label htmlFor="validationDefault01" className="form-label">
+            Title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Title"
+            id="validationDefault01"
+            value={newPost.title}
+            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+          />
         </div>
-        <div>
-          <label htmlFor="body">Body</label>
-          <input id="body" ref={bodyRef} />
+        <div className="col-md-6">
+          <label htmlFor="validationDefault02" className="form-label">
+            Body
+          </label>
+          <textarea
+            type="text"
+            placeholder="Body"
+            className="form-control"
+            id="validationDefault02"
+            value={newPost.body}
+            onChange={(e) => setNewPost({ ...newPost, body: e.target.value })}
+          />
         </div>
-        <button disabled={createPostMutation.isLoading}>
-          {createPostMutation.isLoading ? "Loading..." : "Create"}
-        </button>
-      </form>
+
+        <div className="col-12">
+          <button
+            className="btn btn-primary"
+            onClick={handleCreatePost}
+            disabled={handleDisable()}
+          >
+            {createPostMutation.isLoading ? "Loading..." : "Create"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -27,7 +27,10 @@ export function PostListInfinite() {
           <div key={post.id}>{post.title}</div>
         ))}
       {hasNextPage && (
-        <button onClick={() => fetchNextPage()}>
+        <button
+          className="btn btn-primary mt-2"
+          onClick={() => fetchNextPage()}
+        >
           {isFetchingNextPage ? "Loading..." : "Load More"}
         </button>
       )}
