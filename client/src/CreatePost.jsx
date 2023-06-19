@@ -23,6 +23,28 @@ export function CreatePost({ setCurrentPage }) {
       queryClient.invalidateQueries(["posts"], { exact: true });
       setCurrentPage(<Post id={data.id} />);
     },
+    // onMutate: (postData) => {
+    //   // Update the local state optimistically before the mutation is executed
+    //   queryClient.setQueryData("posts", (prevData) => {
+    //     const newPost = { id: Date.now(), ...postData };
+    //     return [...prevData, newPost];
+    //   });
+
+    //   // Return a snapshot of the previous posts data for possible rollback
+    //   return () => queryClient.setQueryData("posts", prevData);
+    // },
+    // // Rollback the optimistic update on mutation failure
+    // onError: (error, newItem, rollback) => {
+    //   // Show an error toast or handle the error in your preferred way
+    //   console.error("Create post failed:", error);
+
+    //   // Rollback to the previous posts data
+    //   rollback();
+    // },
+    // // Invalidate and refetch the posts query after successful mutation
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries("posts");
+    // },
   });
 
   return (
