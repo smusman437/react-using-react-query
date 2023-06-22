@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint .",
-    "prettier": "npx prettier -c ./client"
+    "prettier": "npx prettier -c ."
   },
   "repository": {
     "type": "git",
